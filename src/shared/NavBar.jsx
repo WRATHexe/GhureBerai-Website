@@ -1,5 +1,4 @@
 import { useContext } from "react";
-import { FaUserCircle } from "react-icons/fa";
 import { Link, NavLink, useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import { AuthContext } from "../provider/AuthContext";
@@ -121,18 +120,20 @@ const NavBar = () => {
                 tabIndex={0}
                 className="btn btn-ghost btn-circle avatar border-2 border-teal-400"
               >
-                {user ? (
-                  <img
-                    src={
-                      user?.photoURL ||
-                      "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                    }
-                    alt="Profile"
-                    className="w-10 h-10 rounded-full"
-                  />
-                ) : (
-                  <FaUserCircle className="w-8 h-8 text-teal-600" />
-                )}
+                <img
+                  src={
+                    user.photoURL && user.photoURL.trim()
+                      ? user.photoURL
+                      : "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                  }
+                  alt="User"
+                  className="w-10 h-10 rounded-full"
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src =
+                      "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp";
+                  }}
+                />
               </label>
               <ul
                 tabIndex={0}
