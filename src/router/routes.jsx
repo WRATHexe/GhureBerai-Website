@@ -5,6 +5,7 @@ import Login from "../pages/Login";
 import Register from "../pages/register";
 import PrivateRoute from "./PrivateRoute";
 import ErrorPage from "../pages/ErrorPage";
+import AllPackages from "../pages/AllPackages";
 
 export const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ export const router = createBrowserRouter([
             <AddPackages />
           </PrivateRoute>
         ),
+      },
+      {
+        path: "/packages",
+        element: <AllPackages />,
       },
     ],
   },
