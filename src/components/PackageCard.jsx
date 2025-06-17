@@ -5,7 +5,7 @@ import { AuthContext } from "../provider/AuthContext";
 const PackageCard = ({ pkg }) => {
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
-  const onViewDetails = (id) => async () => {
+  const onViewDetails = async (id) => {
     await fetch(`http://localhost:5000/tourPackages/${id}`);
     if (!user) {
       navigate("/login");

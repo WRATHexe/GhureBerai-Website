@@ -4,6 +4,7 @@ import AddPackages from "../pages/AddPackages";
 import AllPackages from "../pages/AllPackages";
 import ErrorPage from "../pages/ErrorPage";
 import Login from "../pages/Login";
+import MyPackages from "../pages/MyPackages";
 import PackageDetails from "../pages/packageDetails";
 import Register from "../pages/register";
 import PrivateRoute from "./PrivateRoute";
@@ -42,6 +43,22 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <PackageDetails />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/my-bookings",
+        element: (
+          <PrivateRoute>
+            <h1>My Bookings Page</h1>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/manage-packages",
+        element: (
+          <PrivateRoute>
+            <MyPackages />
           </PrivateRoute>
         ),
       },
