@@ -1,8 +1,15 @@
+import Featured from "../components/featured";
+import HeroBanner from "../components/HeroBanner";
+import Testimonials from "../components/Testimonials";
+import WhyChooseUs from "../components/WhyChooseUs";
+
 const Home = () => {
   return (
     <div>
-      welcome to TourBuzz...
-      
+      <HeroBanner />
+      <Featured />
+      <WhyChooseUs />
+      <Testimonials />
     </div>
   );
 };

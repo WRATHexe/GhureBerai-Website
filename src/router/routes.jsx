@@ -3,6 +3,7 @@ import RootLayout from "../layouts/RootLayout";
 import AddPackages from "../pages/AddPackages";
 import AllPackages from "../pages/AllPackages";
 import ErrorPage from "../pages/ErrorPage";
+import Home from "../pages/Home";
 import Login from "../pages/Login";
 import MyBookings from "../pages/MyBookings";
 import MyPackages from "../pages/MyPackages";
@@ -17,7 +18,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <h1>Home Page</h1>,
+        element: <Home />,
       },
       {
         path: "/signup",
