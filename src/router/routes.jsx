@@ -1,11 +1,12 @@
 import { createBrowserRouter } from "react-router";
 import RootLayout from "../layouts/RootLayout";
 import AddPackages from "../pages/AddPackages";
+import AllPackages from "../pages/AllPackages";
+import ErrorPage from "../pages/ErrorPage";
 import Login from "../pages/Login";
+import PackageDetails from "../pages/packageDetails";
 import Register from "../pages/register";
 import PrivateRoute from "./PrivateRoute";
-import ErrorPage from "../pages/ErrorPage";
-import AllPackages from "../pages/AllPackages";
 
 export const router = createBrowserRouter([
   {
@@ -35,6 +36,14 @@ export const router = createBrowserRouter([
       {
         path: "/packages",
         element: <AllPackages />,
+      },
+      {
+        path: "/package/:id",
+        element: (
+          <PrivateRoute>
+            <PackageDetails />
+          </PrivateRoute>
+        ),
       },
     ],
   },
