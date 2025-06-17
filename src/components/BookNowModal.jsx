@@ -9,16 +9,16 @@ const BookNowModal = ({ pkg, user, onClose }) => {
   const handleBooking = async (e) => {
     e.preventDefault();
     setLoading(true);
+    const formData = new FormData(e.target);
     const booking = {
-      tourPackageId: pkg._id,
-      tourName: pkg.tourName,
-      price: pkg.price,
+      ...Object.fromEntries(formData.entries()),
       buyerName: user.displayName,
       buyerEmail: user.email,
       bookingDate: new Date(),
-      specialNote: noteRef.current.value,
       status: "pending",
+      specialNote: noteRef.current.value || "",
     };
+    console.log("Booking data:", booking);
     try {
       await axios.post("http://localhost:5000/bookings", booking);
       Swal.fire({
