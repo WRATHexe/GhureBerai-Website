@@ -7,7 +7,7 @@ import Home from "../pages/Home";
 import Login from "../pages/Login";
 import MyBookings from "../pages/MyBookings";
 import MyPackages from "../pages/MyPackages";
-import PackageDetails from "../pages/packageDetails";
+import PackageDetails from "../pages/PackageDetails";
 import Register from "../pages/register";
 import PrivateRoute from "./PrivateRoute";
 
@@ -29,7 +29,7 @@ export const router = createBrowserRouter([
         element: <Login />,
       },
       {
-        path: "/add-package",
+        path: "/add-packages",
         element: (
           <PrivateRoute>
             <AddPackages />
@@ -57,7 +57,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "/manage-packages",
+        path: "/my-packages",
         element: (
           <PrivateRoute>
             <MyPackages />

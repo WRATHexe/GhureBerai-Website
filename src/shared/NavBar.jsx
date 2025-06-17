@@ -1,7 +1,6 @@
 import { useContext, useState } from "react";
-import { Link, NavLink, useNavigate } from "react-router";
-import { toast } from "react-toastify";
-import ThemeToggle from "../components/ThemeToggle"; // <-- import here
+import { Link, useNavigate } from "react-router";
+import ThemeToggle from "../components/ThemeToggle";
 import { AuthContext } from "../provider/AuthContext";
 
 const NavBar = () => {
@@ -9,143 +8,127 @@ const NavBar = () => {
   const navigate = useNavigate();
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  const handleLogout = () => {
-    logOut()
-      .then(() => {
-        toast.success("Logout successful");
-        setDropdownOpen(false);
-        navigate("/login");
-      })
-      .catch((error) => {
-        console.error("Logout failed:", error);
-      });
+  const handleLogout = async () => {
+    await logOut();
+    navigate("/");
   };
 
   return (
-    <nav className="bg-base-100 shadow-md sticky top-0 z-50 transition-colors duration-300">
-      <div className="container mx-auto px-4 py-2 flex items-center justify-between">
-        {/* Logo & Site Name */}
+    <nav className="sticky top-0 z-50 bg-white/80 dark:bg-emerald-950/80 backdrop-blur-xl shadow-md border-b border-[#b2ebf2] dark:border-emerald-900 transition-all duration-300">
+      <div className="max-w-5/6 mx-auto px-4 py-2 flex items-center justify-between">
+        {/* Logo */}
         <Link to="/" className="flex items-center gap-2">
           <img
             src="https://i.postimg.cc/bvP5QYXf/eco-tourism-concept-with-travelers-23-2148617986.avif"
-            alt="TourBuzz Logo"
-            className="w-10 h-10 rounded-full border-2 border-primary shadow"
+            alt="Logo"
+            className="w-10 h-10 rounded-full shadow-lg border-2 border-[#26b6bf] bg-white object-cover"
           />
-          <span className="font-extrabold text-2xl text-primary tracking-wide font-sans">
-            TourBuzz
+          <span className="text-2xl font-extrabold text-[#26b6bf] merinda tracking-tight drop-shadow">
+            GhureBerai
           </span>
         </Link>
-        {/* Nav Links */}
-        <ul className="flex gap-4 items-center font-medium">
-          <li>
-            <NavLink
-              to="/"
-              className={({ isActive }) =>
-                isActive
-                  ? "bg-primary text-base-100 px-3 py-1 rounded-lg shadow"
-                  : "hover:text-primary transition"
-              }
-            >
-              Home
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/packages"
-              className={({ isActive }) =>
-                isActive
-                  ? "bg-primary text-base-100 px-3 py-1 rounded-lg shadow"
-                  : "hover:text-primary transition"
-              }
-            >
-              All Packages
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/about"
-              className={({ isActive }) =>
-                isActive
-                  ? "bg-primary text-base-100 px-3 py-1 rounded-lg shadow"
-                  : "hover:text-primary transition"
-              }
-            >
-              About Us
-            </NavLink>
-          </li>
+
+        {/* Main nav links */}
+        <div className="hidden md:flex gap-6 items-center">
+          <Link
+            to="/"
+            className="font-semibold text-[#184a4e] dark:text-emerald-100 hover:text-[#26b6bf] dark:hover:text-[#b2ebf2] transition px-2 py-1 rounded"
+          >
+            Home
+          </Link>
+          <Link
+            to="/packages"
+            className="font-semibold text-[#184a4e] dark:text-emerald-100 hover:text-[#26b6bf] dark:hover:text-[#b2ebf2] transition px-2 py-1 rounded"
+          >
+            All Packages
+          </Link>
           {user && (
-            <li>
-              <NavLink
-                to="/my-bookings"
-                className={({ isActive }) =>
-                  isActive
-                    ? "bg-primary text-base-100 px-3 py-1 rounded-lg shadow"
-                    : "hover:text-primary transition"
-                }
-              >
-                My Bookings
-              </NavLink>
-            </li>
+            <Link
+              to="/my-bookings"
+              className="font-semibold text-[#184a4e] dark:text-emerald-100 hover:text-[#26b6bf] dark:hover:text-[#b2ebf2] transition px-2 py-1 rounded"
+            >
+              My Bookings
+            </Link>
           )}
-        </ul>
-        {/* Profile/Logout & Theme Toggle */}
-        <div className="flex items-center gap-3">
-          {user ? (
-            <div className="relative">
-              <img
-                src={
-                  user?.photoURL ||
-                  "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                }
-                alt="User"
-                className="w-10 h-10 rounded-full border-2 border-primary cursor-pointer object-cover"
+          <Link
+            to="/about"
+            className="font-semibold text-[#184a4e] dark:text-emerald-100 hover:text-[#26b6bf] dark:hover:text-[#b2ebf2] transition px-2 py-1 rounded"
+          >
+            About Us
+          </Link>
+        </div>
+
+        {/* Right Side: Theme + Profile */}
+        <div className="flex items-center gap-2">
+          <ThemeToggle />
+          {user && (
+            <div className="relative ml-10">
+              <button
+                className=" flex items-center gap-2 rounded-full"
                 onClick={() => setDropdownOpen((prev) => !prev)}
-              />
+                aria-label="Open user menu"
+              >
+                <img
+                  src={
+                    user.photoURL ||
+                    "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                  }
+                  alt={user.displayName || "User"}
+                  className="w-10 h-10 rounded-full  object-cover "
+                />
+              </button>
+
+              {/* Dropdown */}
               {dropdownOpen && (
-                <div className="absolute right-0 mt-2 w-56 bg-base-100 rounded-xl shadow-lg border border-primary z-50">
-                  <div className="px-4 py-3 border-b border-primary">
-                    <div className="font-bold text-primary">
-                      {user.displayName}
+                <div className="absolute right-0 mt-2 w-60 bg-white dark:bg-emerald-950 rounded-2xl shadow-2xl py-2 z-50 transition-all duration-150 border border-[#b2ebf2] dark:border-emerald-900">
+                  {/* Profile Info */}
+                  <div className="flex items-center gap-3 px-4 py-4 border-b border-gray-100 dark:border-emerald-900">
+                    <img
+                      src={
+                        user.photoURL ||
+                        "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                      }
+                      alt={user.displayName || "User"}
+                      className="w-11 h-11 rounded-full object-cover"
+                    />
+                    <div>
+                      <div className="font-semibold text-[#184a4e] dark:text-emerald-100 text-base">
+                        {user.displayName}
+                      </div>
+                      <div className="text-xs text-gray-500 dark:text-emerald-300">
+                        {user.email}
+                      </div>
                     </div>
-                    <div className="text-xs text-secondary">{user.email}</div>
                   </div>
-                  <button
-                    className="w-full text-left px-4 py-3 hover:bg-primary hover:text-base-100 transition"
-                    onClick={() => {
-                      setDropdownOpen(false);
-                      navigate("/add-package");
-                    }}
+                  {/* Actions */}
+
+                  <Link
+                    to="/add-packages"
+                    className="block px-4 py-3 hover:bg-emerald-50 dark:hover:bg-emerald-900 text-[#184a4e] dark:text-emerald-100 transition"
+                    onClick={() => setDropdownOpen(false)}
                   >
                     Add Package
-                  </button>
-                  <button
-                    className="w-full text-left px-4 py-3 hover:bg-primary hover:text-base-100 transition"
-                    onClick={() => {
-                      setDropdownOpen(false);
-                      navigate("/my-packages");
-                    }}
+                  </Link>
+                  <Link
+                    to="/my-packages"
+                    className="block px-4 py-3 hover:bg-emerald-50 dark:hover:bg-emerald-900 text-[#184a4e] dark:text-emerald-100 transition"
+                    onClick={() => setDropdownOpen(false)}
                   >
                     Manage My Packages
-                  </button>
+                  </Link>
                   <button
-                    className="w-full text-left px-4 py-3 hover:bg-error hover:text-base-100 transition text-error"
-                    onClick={handleLogout}
+                    onClick={() => {
+                      handleLogout();
+                      setDropdownOpen(false);
+                    }}
+                    className="block px-4 py-3 hover:bg-red-50 dark:hover:bg-emerald-900 text-[#d32f2f] font-semibold w-full text-left transition rounded-b-2xl"
                   >
                     Logout
                   </button>
                 </div>
               )}
             </div>
-          ) : (
-            <Link
-              to="/login"
-              className="btn btn-primary btn-sm rounded-full shadow font-bold text-base-100"
-            >
-              Login
-            </Link>
           )}
-          {/* Theme Toggle Button */}
-          <ThemeToggle />
         </div>
       </div>
     </nav>
