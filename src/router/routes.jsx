@@ -4,6 +4,7 @@ import AddPackages from "../pages/AddPackages";
 import AllPackages from "../pages/AllPackages";
 import ErrorPage from "../pages/ErrorPage";
 import Login from "../pages/Login";
+import MyBookings from "../pages/MyBookings";
 import MyPackages from "../pages/MyPackages";
 import PackageDetails from "../pages/packageDetails";
 import Register from "../pages/register";
@@ -50,7 +51,7 @@ export const router = createBrowserRouter([
         path: "/my-bookings",
         element: (
           <PrivateRoute>
-            <h1>My Bookings Page</h1>
+            <MyBookings />
           </PrivateRoute>
         ),
       },
