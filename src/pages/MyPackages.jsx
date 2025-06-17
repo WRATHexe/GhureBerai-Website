@@ -18,7 +18,7 @@ const MyPackages = () => {
         try {
           const idToken = await user.getIdToken(true); // get fresh token
           const response = await axios.get(
-            `http://localhost:5000/tourPackages?email=${user.email}`,
+            `http://localhost:5000/my-tourPackages?email=${user.email}`,
             {
               headers: {
                 Authorization: `Bearer ${idToken}`,
@@ -52,7 +52,7 @@ const MyPackages = () => {
 
     if (result.isConfirmed) {
       try {
-        await axios.delete(`http://localhost:5000/tourPackages/${id}`);
+        await axios.delete(`http://localhost:5000/my-tourPackages/${id}`);
         setPackages((prev) => prev.filter((pkg) => pkg._id !== id));
         toast.success("Package deleted successfully!");
       } catch (error) {

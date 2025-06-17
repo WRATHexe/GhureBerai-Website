@@ -45,7 +45,8 @@ const PackageDetails = () => {
         <span className="font-semibold">Price:</span> ${pkg.price}
       </div>
       <div className="mb-2">
-        <span className="font-semibold">Booking Count:</span> {pkg.bookingCount}
+        <span className="font-semibold">Booking Count:</span>{" "}
+        {pkg.booking_count ?? 0}
       </div>
       <div className="mb-2">
         <span className="font-semibold">Departure:</span>{" "}
@@ -66,8 +67,13 @@ const PackageDetails = () => {
       {showModal && (
         <BookNowModal
           pkg={pkg}
-          user={user}
           onClose={() => setShowModal(false)}
+          onSuccess={() => {
+            // Optionally, re-fetch package to update booking_count after booking
+            axios
+              .get(`http://localhost:5000/tourPackages/${id}`)
+              .then((res) => setPkg(res.data));
+          }}
         />
       )}
     </div>

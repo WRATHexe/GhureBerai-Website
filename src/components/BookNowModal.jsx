@@ -1,10 +1,49 @@
 import axios from "axios";
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
+import { toast } from "react-toastify";
 import Swal from "sweetalert2";
+import { AuthContext } from "../provider/AuthContext";
 
-const BookNowModal = ({ pkg, user, onClose }) => {
+const POLL_INTERVAL = 500;
+const POLL_TIMEOUT = 5000; // 5 seconds for better reliability
+
+const BookNowModal = ({ pkg, onClose, onSuccess }) => {
+  const { user } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const noteRef = useRef();
+
+  // Poll bookings to check for the new booking
+  const pollForBooking = async (bookingIdToken, bookingObj) => {
+    const start = Date.now();
+    let found = false;
+
+    while (!found && Date.now() - start < POLL_TIMEOUT) {
+      try {
+        const res = await axios.get(
+          `http://localhost:5000/bookings?email=${user.email}`,
+          {
+            headers: {
+              Authorization: `Bearer ${bookingIdToken}`,
+            },
+          }
+        );
+        // Check if the booking with this packageId exists
+        const exists = res.data.some(
+          (b) =>
+            b.packageId === bookingObj.packageId &&
+            b.buyerEmail === bookingObj.buyerEmail
+        );
+        if (exists) {
+          found = true;
+          onSuccess && onSuccess();
+          break;
+        }
+      } catch {
+        // ignore errors during polling
+      }
+      await new Promise((resolve) => setTimeout(resolve, POLL_INTERVAL));
+    }
+  };
 
   const handleBooking = async (e) => {
     e.preventDefault();
@@ -12,23 +51,34 @@ const BookNowModal = ({ pkg, user, onClose }) => {
     const formData = new FormData(e.target);
     const booking = {
       ...Object.fromEntries(formData.entries()),
-      buyerName: user.displayName,
+      packageId: pkg._id,
+      packageName: pkg.tourName,
       buyerEmail: user.email,
+      buyerName: user.displayName,
       bookingDate: new Date(),
       status: "pending",
       specialNote: noteRef.current.value || "",
     };
-    console.log("Booking data:", booking);
     try {
-      await axios.post("http://localhost:5000/bookings", booking);
-      Swal.fire({
-        icon: "success",
-        title: "Booking Successful!",
-        text: "Your booking is pending approval.",
-        timer: 1000,
-        showConfirmButton: false,
-      });
-      setTimeout(onClose, 1000);
+      // Always get the latest Firebase ID token
+      const idToken = user && user.getIdToken ? await user.getIdToken() : null;
+
+      await axios.post(
+        "http://localhost:5000/bookings",
+        booking,
+        idToken
+          ? {
+              headers: {
+                Authorization: `Bearer ${idToken}`,
+              },
+            }
+          : {}
+      );
+
+      toast.success("Booking successful!");
+      // Await polling for booking update before closing
+      await pollForBooking(idToken, booking);
+      onClose && onClose();
     } catch {
       Swal.fire({
         icon: "error",
@@ -37,8 +87,9 @@ const BookNowModal = ({ pkg, user, onClose }) => {
         timer: 1100,
         showConfirmButton: false,
       });
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (

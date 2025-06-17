@@ -1,19 +1,19 @@
 const Testimonials = () => (
-  <section className="py-16 bg-gradient-to-br from-green-950 via-green-900 to-green-800">
+  <section className="py-16 bg-gradient-to-br from-emerald-100 via-emerald-200 to-emerald-300 dark:from-[#152422] dark:via-[#184a4e] dark:to-[#1b2c28] transition-colors duration-300">
     <div className="max-w-4xl mx-auto px-4 text-center">
-      <h2 className="text-3xl md:text-4xl font-extrabold text-green-100 mb-10 merinda">
+      <h2 className="text-3xl md:text-4xl font-extrabold text-emerald-900 dark:text-emerald-200 mb-10 merinda">
         What Our Travelers Say
       </h2>
       <div className="grid md:grid-cols-2 gap-10">
         {/* Testimonial 1 */}
-        <div className="relative bg-green-900 bg-opacity-90 rounded-2xl p-8 text-green-100 shadow-2xl border-2 border-green-700 flex flex-col items-center">
+        <div className="relative bg-white/90 dark:bg-emerald-950/80 rounded-2xl p-8 text-emerald-900 dark:text-emerald-100 shadow-2xl border-2 border-emerald-300 dark:border-emerald-800 flex flex-col items-center">
           <img
             src="https://randomuser.me/api/portraits/women/44.jpg"
             alt="Ayesha Rahman"
-            className="w-20 h-20 rounded-full border-4 border-green-400 object-cover mb-4 shadow-lg"
+            className="w-20 h-20 rounded-full border-4 border-emerald-400 dark:border-emerald-600 object-cover mb-4 shadow-lg"
           />
           <svg
-            className="absolute top-6 left-6 w-8 h-8 text-green-400 opacity-30"
+            className="absolute top-6 left-6 w-8 h-8 text-emerald-300 dark:text-emerald-700 opacity-40"
             fill="currentColor"
             viewBox="0 0 24 24"
           >
@@ -23,18 +23,22 @@ const Testimonials = () => (
             "The jungle tour was a life-changing experience! Our guide was
             knowledgeable and made us feel safe throughout."
           </p>
-          <div className="font-bold text-green-200 text-lg">Ayesha Rahman</div>
-          <div className="text-green-400 text-sm">Dhaka, Bangladesh</div>
+          <div className="font-bold text-emerald-700 dark:text-emerald-300 text-lg">
+            Ayesha Rahman
+          </div>
+          <div className="text-emerald-500 dark:text-emerald-400 text-sm">
+            Dhaka, Bangladesh
+          </div>
         </div>
         {/* Testimonial 2 */}
-        <div className="relative bg-green-900 bg-opacity-90 rounded-2xl p-8 text-green-100 shadow-2xl border-2 border-green-700 flex flex-col items-center">
+        <div className="relative bg-white/90 dark:bg-emerald-950/80 rounded-2xl p-8 text-emerald-900 dark:text-emerald-100 shadow-2xl border-2 border-emerald-300 dark:border-emerald-800 flex flex-col items-center">
           <img
             src="https://randomuser.me/api/portraits/men/32.jpg"
             alt="Tanvir Alam"
-            className="w-20 h-20 rounded-full border-4 border-green-400 object-cover mb-4 shadow-lg"
+            className="w-20 h-20 rounded-full border-4 border-emerald-400 dark:border-emerald-600 object-cover mb-4 shadow-lg"
           />
           <svg
-            className="absolute top-6 left-6 w-8 h-8 text-green-400 opacity-30"
+            className="absolute top-6 left-6 w-8 h-8 text-emerald-300 dark:text-emerald-700 opacity-40"
             fill="currentColor"
             viewBox="0 0 24 24"
           >
@@ -44,8 +48,12 @@ const Testimonials = () => (
             "Loved every moment! The team took care of everything, and the
             scenery was breathtaking. Highly recommended."
           </p>
-          <div className="font-bold text-green-200 text-lg">Tanvir Alam</div>
-          <div className="text-green-400 text-sm">Chattogram, Bangladesh</div>
+          <div className="font-bold text-emerald-700 dark:text-emerald-300 text-lg">
+            Tanvir Alam
+          </div>
+          <div className="text-emerald-500 dark:text-emerald-400 text-sm">
+            Chattogram, Bangladesh
+          </div>
         </div>
       </div>
     </div>
