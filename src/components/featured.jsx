@@ -9,7 +9,7 @@ const Featured = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/tourPackages")
+      .get("https://wrath-ghureberai-server.vercel.app/tourPackages")
       .then((res) => setPackages(res.data.slice(0, 6)))
       .catch(() => setPackages([]));
   }, []);

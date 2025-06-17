@@ -2,7 +2,6 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
-import PackageCard from "../components/PackageCard";
 import UpdatePackageModal from "../components/UpdatePackageModal";
 import { AuthContext } from "../provider/AuthContext";
 
@@ -18,7 +17,7 @@ const MyPackages = () => {
         try {
           const idToken = await user.getIdToken(true); // get fresh token
           const response = await axios.get(
-            `http://localhost:5000/my-tourPackages?email=${user.email}`,
+            `https://wrath-ghureberai-server.vercel.app/my-tourPackages?email=${user.email}`,
             {
               headers: {
                 Authorization: `Bearer ${idToken}`,
@@ -52,7 +51,9 @@ const MyPackages = () => {
 
     if (result.isConfirmed) {
       try {
-        await axios.delete(`http://localhost:5000/my-tourPackages/${id}`);
+        await axios.delete(
+          `https://wrath-ghureberai-server.vercel.app/my-tourPackages/${id}`
+        );
         setPackages((prev) => prev.filter((pkg) => pkg._id !== id));
         toast.success("Package deleted successfully!");
       } catch (error) {
@@ -73,46 +74,96 @@ const MyPackages = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto py-10 px-4">
-      <h2 className="text-3xl font-bold text-[#26b6bf] mb-6 text-center">
-        My Tour Packages
-      </h2>
+    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-emerald-100 to-emerald-200 dark:from-[#152422] dark:via-[#1b2c28] dark:to-[#184a4e] py-12 px-2 sm:px-4 transition-colors duration-300">
+      <div className="max-w-6xl mx-auto">
+        <h2 className="text-3xl font-extrabold text-emerald-900 dark:text-emerald-200 mb-8 text-center tracking-tight merinda">
+          My Tour Packages
+        </h2>
 
-      {loading ? (
-        <div className="text-center text-gray-500">Loading packages...</div>
-      ) : packages.length === 0 ? (
-        <div className="text-center text-gray-500">No packages found.</div>
-      ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {packages.map((pkg) => (
-            <div key={pkg._id} className="relative">
-              <PackageCard pkg={pkg} onViewDetails={() => {}} />
-              <div className="absolute top-3 right-3 flex gap-2">
-                <button
-                  className="btn btn-xs bg-[#26b6bf] text-white"
-                  onClick={() => handleEdit(pkg)}
-                >
-                  Edit
-                </button>
-                <button
-                  className="btn btn-xs bg-red-500 text-white"
-                  onClick={() => handleDelete(pkg._id)}
-                >
-                  Delete
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
+        {loading ? (
+          <div className="text-center text-emerald-400 dark:text-emerald-200">
+            Loading packages...
+          </div>
+        ) : (
+          <div className="overflow-x-auto rounded-2xl shadow bg-white dark:bg-emerald-950/80 border border-emerald-100 dark:border-emerald-800">
+            <table className="min-w-full divide-y divide-emerald-100 dark:divide-emerald-800">
+              <thead>
+                <tr>
+                  <th className="px-4 py-3 text-left text-xs font-bold text-emerald-700 dark:text-emerald-200 uppercase whitespace-nowrap">
+                    Tour Name
+                  </th>
+                  <th className="px-4 py-3 text-left text-xs font-bold text-emerald-700 dark:text-emerald-200 uppercase whitespace-nowrap">
+                    Destination
+                  </th>
+                  <th className="px-4 py-3 text-left text-xs font-bold text-emerald-700 dark:text-emerald-200 uppercase whitespace-nowrap">
+                    Price
+                  </th>
+                  <th className="px-4 py-3 text-left text-xs font-bold text-emerald-700 dark:text-emerald-200 uppercase whitespace-nowrap">
+                    Departure
+                  </th>
+                  <th className="px-4 py-3 text-center text-xs font-bold text-emerald-700 dark:text-emerald-200 uppercase whitespace-nowrap">
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {packages.length === 0 ? (
+                  <tr>
+                    <td
+                      colSpan={5}
+                      className="text-center py-8 text-emerald-400 dark:text-emerald-200"
+                    >
+                      No packages found.
+                    </td>
+                  </tr>
+                ) : (
+                  packages.map((pkg) => (
+                    <tr
+                      key={pkg._id}
+                      className="hover:bg-emerald-50 dark:hover:bg-emerald-900/40 transition"
+                    >
+                      <td className="px-4 py-3 font-semibold whitespace-nowrap">
+                        {pkg.tourName}
+                      </td>
+                      <td className="px-4 py-3 whitespace-nowrap">
+                        {pkg.destination}
+                      </td>
+                      <td className="px-4 py-3 whitespace-nowrap">
+                        ৳ {pkg.price}
+                      </td>
+                      <td className="px-4 py-3 whitespace-nowrap">
+                        {new Date(pkg.departureDate).toLocaleDateString()}
+                      </td>
+                      <td className="px-4 py-3 flex flex-wrap justify-center gap-2">
+                        <button
+                          className="btn btn-xs rounded-full bg-emerald-500 hover:bg-emerald-600 text-white font-semibold shadow transition"
+                          onClick={() => handleEdit(pkg)}
+                        >
+                          Update
+                        </button>
+                        <button
+                          className="btn btn-xs rounded-full bg-red-500 hover:bg-red-600 text-white font-semibold shadow transition"
+                          onClick={() => handleDelete(pkg._id)}
+                        >
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
+          </div>
+        )}
 
-      {selected && (
-        <UpdatePackageModal
-          pkg={selected}
-          onClose={() => setSelected(null)}
-          onSuccess={handleUpdateSuccess}
-        />
-      )}
+        {selected && (
+          <UpdatePackageModal
+            pkg={selected}
+            onClose={() => setSelected(null)}
+            onSuccess={handleUpdateSuccess}
+          />
+        )}
+      </div>
     </div>
   );
 };

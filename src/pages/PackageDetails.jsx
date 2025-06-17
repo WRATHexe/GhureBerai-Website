@@ -12,7 +12,7 @@ const PackageDetails = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/tourPackages/${id}`)
+      .get(`https://wrath-ghureberai-server.vercel.app/tourPackages/${id}`)
       .then((res) => setPkg(res.data))
       .catch(() => setPkg(null));
   }, [id]);
@@ -71,7 +71,9 @@ const PackageDetails = () => {
           onSuccess={() => {
             // Optionally, re-fetch package to update booking_count after booking
             axios
-              .get(`http://localhost:5000/tourPackages/${id}`)
+              .get(
+                `https://wrath-ghureberai-server.vercel.app/tourPackages/${id}`
+              )
               .then((res) => setPkg(res.data));
           }}
         />

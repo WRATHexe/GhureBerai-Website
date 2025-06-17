@@ -15,7 +15,7 @@ const MyBookings = () => {
         try {
           const idToken = await user.getIdToken();
           const res = await axios.get(
-            `http://localhost:5000/bookings?email=${user.email}`,
+            `https://wrath-ghureberai-server.vercel.app/bookings?email=${user.email}`,
             {
               headers: {
                 Authorization: `Bearer ${idToken}`,
@@ -34,41 +34,123 @@ const MyBookings = () => {
     fetchBookings();
   }, [user]);
 
+  const handleConfirm = async (id) => {
+    try {
+      const idToken = await user.getIdToken();
+      const res = await axios.patch(
+        `https://wrath-ghureberai-server.vercel.app/bookings/${id}`,
+        { status: "completed" },
+        {
+          headers: {
+            Authorization: `Bearer ${idToken}`,
+          },
+        }
+      );
+      if (res.data.modifiedCount > 0 || res.data.success) {
+        setBookings((prev) =>
+          prev.map((b) => (b._id === id ? { ...b, status: "completed" } : b))
+        );
+        toast.success("Booking marked as completed!");
+      } else {
+        toast.error("Failed to update booking status.");
+      }
+    } catch {
+      toast.error("Failed to update booking status.");
+    }
+  };
+
   return (
-    <div className="max-w-4xl mx-auto py-10 px-4">
-      <h2 className="text-3xl font-bold text-[#26b6bf] mb-6 text-center">
-        My Bookings
-      </h2>
-      {loading ? (
-        <div className="text-center text-gray-400">Loading...</div>
-      ) : bookings.length === 0 ? (
-        <div className="text-center text-gray-500">No bookings found.</div>
-      ) : (
-        <div className="grid grid-cols-1 gap-6">
-          {bookings.map((booking) => (
-            <div
-              key={booking._id}
-              className="bg-white dark:bg-emerald-950 rounded-xl shadow p-4"
-            >
-              <div className="font-semibold text-lg">
-                {booking.tourName || booking.packageName}
-              </div>
-              <div className="text-sm text-gray-500 dark:text-emerald-200">
-                Date:{" "}
-                {booking.bookingDate
-                  ? new Date(booking.bookingDate).toLocaleDateString()
-                  : "N/A"}
-              </div>
-              <div className="text-sm">Status: {booking.status}</div>
-              {booking.specialNote && (
-                <div className="text-xs mt-2 italic text-gray-400">
-                  Note: {booking.specialNote}
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-      )}
+    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-emerald-100 to-emerald-200 dark:from-[#152422] dark:via-[#1b2c28] dark:to-[#184a4e] py-12 px-2 sm:px-4 transition-colors duration-300">
+      <div className="max-w-5xl mx-auto">
+        <h2 className="text-3xl font-extrabold text-emerald-900 dark:text-emerald-200 mb-8 text-center tracking-tight merinda">
+          My Bookings
+        </h2>
+        {loading ? (
+          <div className="text-center text-emerald-400 dark:text-emerald-200">
+            Loading...
+          </div>
+        ) : bookings.length === 0 ? (
+          <div className="text-center text-emerald-400 dark:text-emerald-200">
+            No bookings found.
+          </div>
+        ) : (
+          <div className="overflow-x-auto rounded-2xl shadow bg-white dark:bg-emerald-950/80 border border-emerald-100 dark:border-emerald-800">
+            <table className="min-w-full divide-y divide-emerald-100 dark:divide-emerald-800">
+              <thead>
+                <tr>
+                  <th className="px-4 py-3 text-left text-xs font-bold text-emerald-700 dark:text-emerald-200 uppercase whitespace-nowrap">
+                    Tour Name
+                  </th>
+                  <th className="px-4 py-3 text-left text-xs font-bold text-emerald-700 dark:text-emerald-200 uppercase whitespace-nowrap">
+                    Guide Name + Contact
+                  </th>
+                  <th className="px-4 py-3 text-left text-xs font-bold text-emerald-700 dark:text-emerald-200 uppercase whitespace-nowrap">
+                    Departure Date
+                  </th>
+                  <th className="px-4 py-3 text-left text-xs font-bold text-emerald-700 dark:text-emerald-200 uppercase whitespace-nowrap">
+                    Departure Location
+                  </th>
+                  <th className="px-4 py-3 text-left text-xs font-bold text-emerald-700 dark:text-emerald-200 uppercase whitespace-nowrap">
+                    Destination
+                  </th>
+                  <th className="px-4 py-3 text-left text-xs font-bold text-emerald-700 dark:text-emerald-200 uppercase whitespace-nowrap">
+                    Special Note
+                  </th>
+                  <th className="px-4 py-3 text-center text-xs font-bold text-emerald-700 dark:text-emerald-200 uppercase whitespace-nowrap">
+                    Status / Action
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {bookings.map((booking) => (
+                  <tr
+                    key={booking._id}
+                    className="hover:bg-emerald-50 dark:hover:bg-emerald-900/40 transition"
+                  >
+                    <td className="px-4 py-3 font-semibold whitespace-nowrap">
+                      {booking.tourName || booking.packageName}
+                    </td>
+                    <td className="px-4 py-3 whitespace-nowrap">
+                      <div className="font-medium">{booking.guideName}</div>
+                      <div className="text-xs text-emerald-500 dark:text-emerald-300">
+                        {booking.contactNo}
+                      </div>
+                    </td>
+                    <td className="px-4 py-3 whitespace-nowrap">
+                      {booking.departureDate
+                        ? new Date(booking.departureDate).toLocaleDateString()
+                        : "N/A"}
+                    </td>
+                    <td className="px-4 py-3 whitespace-nowrap">
+                      {booking.departureLocation}
+                    </td>
+                    <td className="px-4 py-3 whitespace-nowrap">
+                      {booking.destination}
+                    </td>
+                    <td className="px-4 py-3 whitespace-nowrap text-xs text-emerald-400 dark:text-emerald-300">
+                      {booking.specialNote || "-"}
+                    </td>
+                    <td className="px-4 py-3 text-center whitespace-nowrap">
+                      {booking.status === "completed" ? (
+                        <span className="inline-block px-3 py-1 rounded-full bg-emerald-100 dark:bg-emerald-800 text-emerald-700 dark:text-emerald-200 font-semibold text-xs">
+                          Completed
+                        </span>
+                      ) : (
+                        <button
+                          className="btn btn-xs rounded-full bg-emerald-500 hover:bg-emerald-600 text-white font-semibold shadow transition"
+                          onClick={() => handleConfirm(booking._id)}
+                        >
+                          Confirm
+                        </button>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

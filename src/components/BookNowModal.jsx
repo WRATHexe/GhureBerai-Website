@@ -20,7 +20,7 @@ const BookNowModal = ({ pkg, onClose, onSuccess }) => {
     while (!found && Date.now() - start < POLL_TIMEOUT) {
       try {
         const res = await axios.get(
-          `http://localhost:5000/bookings?email=${user.email}`,
+          `https://wrath-ghureberai-server.vercel.app/bookings?email=${user.email}`,
           {
             headers: {
               Authorization: `Bearer ${bookingIdToken}`,
@@ -64,7 +64,7 @@ const BookNowModal = ({ pkg, onClose, onSuccess }) => {
       const idToken = user && user.getIdToken ? await user.getIdToken() : null;
 
       await axios.post(
-        "http://localhost:5000/bookings",
+        "https://wrath-ghureberai-server.vercel.app/bookings",
         booking,
         idToken
           ? {

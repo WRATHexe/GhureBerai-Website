@@ -7,7 +7,9 @@ const PackageCard = ({ pkg }) => {
   const { user } = useContext(AuthContext);
 
   const onViewDetails = async (id) => {
-    await fetch(`http://localhost:5000/tourPackages/${id}`);
+    await fetch(
+      `https://wrath-ghureberai-server.vercel.app/tourPackages/${id}`
+    );
     navigate(user ? `/package/${id}` : "/login");
   };
 

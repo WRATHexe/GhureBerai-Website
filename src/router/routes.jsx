@@ -10,6 +10,7 @@ import MyPackages from "../pages/MyPackages";
 import PackageDetails from "../pages/PackageDetails";
 import Register from "../pages/register";
 import PrivateRoute from "./PrivateRoute";
+import About from "../pages/About";
 
 export const router = createBrowserRouter([
   {
@@ -64,6 +65,10 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+      {
+        path:"/about",
+        element:<About />
+      }
     ],
   },
   {
