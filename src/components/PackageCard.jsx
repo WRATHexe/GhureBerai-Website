@@ -14,13 +14,13 @@ const PackageCard = ({ pkg }) => {
   };
 
   return (
-    <div className="max-w-md mx-auto rounded-3xl overflow-hidden shadow-lg border border-slate-100 dark:border-emerald-300/20 bg-white/90 dark:bg-emerald-100/10 hover:shadow-2xl transition-all duration-300 group">
+    <div className="w-full max-w-xs min-h-[480px] flex flex-col rounded-3xl overflow-hidden shadow-lg border border-slate-100 dark:border-emerald-300/20 bg-white/90 dark:bg-emerald-100/10 hover:shadow-2xl transition-all duration-300 group">
       {/* Image Section */}
-      <div className="relative">
+      <div className="relative h-56 w-full">
         <img
           src={pkg?.image}
           alt={pkg?.tourName || "Tour Destination"}
-          className="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300"
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
         />
         {/* Soft overlay for better contrast */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-black/5 to-transparent dark:from-emerald-900/60 dark:via-emerald-900/30" />
@@ -37,9 +37,13 @@ const PackageCard = ({ pkg }) => {
       </div>
 
       {/* Content */}
-      <div className="p-6 flex flex-col gap-3 bg-white/95 dark:bg-emerald-950/70">
+      <div className="flex-1 flex flex-col p-6 gap-3 h-full bg-white/95 dark:bg-emerald-950/70">
         {/* Tour Name */}
-        <h3 className="text-2xl font-extrabold tracking-tight text-emerald-700 dark:text-emerald-200 mb-1">
+        <h3
+          className="flex items-center gap-2 text-lg md:text-xl font-bold mb-1
+            text-emerald-800 dark:text-emerald-100
+            tracking-wide uppercase drop-shadow-sm font-sans"
+        >
           {pkg?.tourName}
         </h3>
 
@@ -81,12 +85,14 @@ const PackageCard = ({ pkg }) => {
         </div>
 
         {/* View Button */}
-        <button
-          onClick={() => onViewDetails(pkg?._id)}
-          className="mt-4 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-6 py-2 rounded-full shadow transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 dark:bg-emerald-200 dark:text-emerald-900 dark:hover:bg-emerald-300"
-        >
-          View Details
-        </button>
+        <div className="mt-auto">
+          <button
+            onClick={() => onViewDetails(pkg?._id)}
+            className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-6 py-2 rounded-full shadow transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 dark:bg-emerald-200 dark:text-emerald-900 dark:hover:bg-emerald-300"
+          >
+            View Details
+          </button>
+        </div>
       </div>
     </div>
   );

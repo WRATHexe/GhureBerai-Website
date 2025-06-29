@@ -16,18 +16,13 @@ const Featured = () => {
 
   return (
     <section className="py-16 bg-gradient-to-br from-emerald-50 via-emerald-100 to-emerald-200 dark:from-[#152422] dark:via-[#1b2c28] dark:to-[#184a4e] transition-colors duration-300">
-      <div className="max-w-6xl mx-auto px-4">
+      <div className="max-w-5/6 mx-auto px-4">
         <h2 className="text-3xl md:text-4xl font-extrabold text-emerald-900 dark:text-emerald-200 mb-10 text-center merinda tracking-wide">
           Featured Packages
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 mb-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10 justify-items-center">
           {packages.map((pkg) => (
-            <div
-              key={pkg._id}
-              className="rounded-2xl shadow-xl border-2 border-emerald-200 dark:border-emerald-800 bg-white bg-opacity-90 dark:bg-emerald-950/80 hover:shadow-emerald-300 dark:hover:shadow-emerald-900 transition"
-            >
-              <PackageCard pkg={pkg} />
-            </div>
+            <PackageCard key={pkg._id} pkg={pkg} />
           ))}
         </div>
         <div className="flex justify-center">

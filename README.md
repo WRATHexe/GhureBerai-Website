@@ -1,18 +1,24 @@
 # GhureBerai
 
-A modern travel and tour booking web application built with React, Tailwind CSS, and Firebase. Users can explore tour packages, book trips, manage their own packages, and more.
+A modern, user-friendly travel and tour booking web application built with React, Tailwind CSS, and Firebase. Explore curated tour packages, book your next adventure, and manage your trips with ease.
 
-## Features
+🌐 **Live Demo:** [https://wrath-ghureberai.web.app/](https://wrath-ghureberai.web.app/)
 
-- 🌍 **Browse All Packages:** View all available tour packages with search and filter options.
-- 🧳 **Book Tours:** Book your favorite packages and manage your bookings.
+---
+
+## ✨ Features
+
+- 🌍 **Browse All Packages:** Discover all available tour packages with powerful search and filter options.
+- 🧳 **Book Tours:** Instantly book your favorite packages and manage your bookings.
 - 📝 **Add & Manage Packages:** Guides can add, update, and delete their own tour packages.
-- 👤 **Authentication:** Secure login, registration, and Google sign-in using Firebase.
-- 🌗 **Dark/Light Mode:** Switch between light and dark themes.
-- 📱 **Responsive Design:** Fully responsive for mobile, tablet, and desktop.
-- 🔔 **Notifications:** User-friendly toast notifications for actions and errors.
+- 👤 **Authentication:** Secure login, registration, and Google sign-in powered by Firebase.
+- 🌗 **Dark/Light Mode:** Effortlessly switch between light and dark themes.
+- 📱 **Responsive Design:** Optimized for mobile, tablet, and desktop devices.
+- 🔔 **Notifications:** Friendly toast notifications for actions and errors.
 
-## Tech Stack
+---
+
+## 🛠️ Tech Stack
 
 - **Frontend:** React, Tailwind CSS, DaisyUI, Lottie
 - **Backend:** Node.js/Express (API endpoints, not included in this repo)
@@ -20,24 +26,28 @@ A modern travel and tour booking web application built with React, Tailwind CSS,
 - **Database:** MongoDB (via backend API)
 - **Other:** React Router, Axios, SweetAlert2, React Toastify
 
-## Folder Structure
+---
+
+## 📁 Folder Structure
 
 ```
 src/
-  assets/                # Images, Lottie animations
-  components/            # Reusable UI components (cards, modals, etc.)
-  layouts/               # Layout components (RootLayout)
-  pages/                 # Main pages (Home, About, Login, Register, etc.)
-  provider/              # Auth context and provider
-  router/                # React Router configuration
-  shared/                # Shared UI (NavBar, Footer)
-  firebase/              # Firebase config
+  assets/         # Images, Lottie animations
+  components/     # Reusable UI components (cards, modals, etc.)
+  layouts/        # Layout components (RootLayout)
+  pages/          # Main pages (Home, About, Login, Register, etc.)
+  provider/       # Auth context and provider
+  router/         # React Router configuration
+  shared/         # Shared UI (NavBar, Footer)
+  firebase/       # Firebase config
   App.jsx
   main.jsx
   index.css
 ```
 
-## Getting Started
+---
+
+## 🚀 Getting Started
 
 ### Prerequisites
 
@@ -84,7 +94,9 @@ src/
    http://localhost:5173
    ```
 
-## Usage
+---
+
+## 📝 Usage
 
 - **Register/Login:** Create an account or log in with Google.
 - **Browse Packages:** Explore all packages on the homepage or "All Packages" page.
@@ -93,16 +105,20 @@ src/
 - **Add/Manage Packages:** If you are a guide, add new packages and manage your own.
 - **Theme Toggle:** Switch between light and dark mode from the navbar.
 
-## Customization
+---
+
+## 🎨 Customization
 
 - **Branding:** Replace logo and brand colors in `assets/` and Tailwind config.
 - **API Endpoints:** Change API URLs in the code to match your backend.
 - **Animations:** Update or add Lottie animations in `assets/LottieAnimations/`.
 
-## License
+---
+
+## 📄 License
 
 This project is for educational/demo purposes. Please contact the author for production/commercial use.
 
 ---
 
-\*\*Made by fardinruhian001@gmail.com
+**Made by fardinruhian001@gmail.com**

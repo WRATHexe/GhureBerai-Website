@@ -17,7 +17,7 @@ const AllPackages = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-emerald-100 to-emerald-200 dark:from-[#152422] dark:via-[#1b2c28] dark:to-[#184a4e] py-12 px-4 transition-colors duration-300">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-5/6 mx-auto">
         <h2 className="text-4xl font-extrabold text-emerald-900 dark:text-emerald-200 mb-8 text-center tracking-tight merinda">
           All Tour Packages
         </h2>
@@ -30,18 +30,14 @@ const AllPackages = () => {
             onChange={(e) => setSearch(e.target.value)}
           />
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 justify-items-center">
           {packages.length === 0 && (
             <div className="col-span-full text-center text-emerald-400 dark:text-emerald-200 text-lg py-12">
               No packages found.
             </div>
           )}
           {packages.map((pkg) => (
-            <div key={pkg._id} className="flex justify-center">
-              <div className="w-full max-w-[410px]">
-                <PackageCard pkg={pkg} />
-              </div>
-            </div>
+            <PackageCard key={pkg._id} pkg={pkg} />
           ))}
         </div>
       </div>

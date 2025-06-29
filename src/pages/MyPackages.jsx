@@ -51,8 +51,14 @@ const MyPackages = () => {
 
     if (result.isConfirmed) {
       try {
+        const idToken = await user.getIdToken(true);
         await axios.delete(
-          `https://wrath-ghureberai-server.vercel.app/my-tourPackages/${id}`
+          `https://wrath-ghureberai-server.vercel.app/tourPackages/${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${idToken}`,
+            },
+          }
         );
         setPackages((prev) => prev.filter((pkg) => pkg._id !== id));
         toast.success("Package deleted successfully!");

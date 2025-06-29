@@ -61,7 +61,7 @@ const MyBookings = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-emerald-100 to-emerald-200 dark:from-[#152422] dark:via-[#1b2c28] dark:to-[#184a4e] py-12 px-2 sm:px-4 transition-colors duration-300">
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-7xl mx-auto">
         <h2 className="text-3xl font-extrabold text-emerald-900 dark:text-emerald-200 mb-8 text-center tracking-tight merinda">
           My Bookings
         </h2>
@@ -108,27 +108,27 @@ const MyBookings = () => {
                     className="hover:bg-emerald-50 dark:hover:bg-emerald-900/40 transition"
                   >
                     <td className="px-4 py-3 font-semibold whitespace-nowrap">
-                      {booking.tourName || booking.packageName}
+                      {booking.tour_name}
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap">
-                      <div className="font-medium">{booking.guideName}</div>
+                      <div className="font-medium">{booking.guide_name}</div>
                       <div className="text-xs text-emerald-500 dark:text-emerald-300">
-                        {booking.contactNo}
+                        {booking.guide_email}
                       </div>
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap">
-                      {booking.departureDate
-                        ? new Date(booking.departureDate).toLocaleDateString()
+                      {booking.departure_date
+                        ? new Date(booking.departure_date).toLocaleDateString()
                         : "N/A"}
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap">
-                      {booking.departureLocation}
+                      {booking.departure_location || "-"}
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap">
-                      {booking.destination}
+                      {booking.destination || "-"}
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap text-xs text-emerald-400 dark:text-emerald-300">
-                      {booking.specialNote || "-"}
+                      {booking.notes || "-"}
                     </td>
                     <td className="px-4 py-3 text-center whitespace-nowrap">
                       {booking.status === "completed" ? (

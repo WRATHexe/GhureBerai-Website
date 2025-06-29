@@ -1,8 +1,10 @@
 import axios from "axios";
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
+import { AuthContext } from "../provider/AuthContext";
 
 const UpdatePackageModal = ({ pkg, onClose, onSuccess }) => {
   const [loading, setLoading] = useState(false);
+  const { user } = useContext(AuthContext);
 
   // Use refs for form fields
   const nameRef = useRef();
@@ -30,9 +32,15 @@ const UpdatePackageModal = ({ pkg, onClose, onSuccess }) => {
       contactNo: contactNoRef.current.value,
     };
     try {
+      const idToken = await user.getIdToken(true);
       const res = await axios.put(
         `https://wrath-ghureberai-server.vercel.app/tourPackages/${pkg._id}`,
-        updated
+        updated,
+        {
+          headers: {
+            Authorization: `Bearer ${idToken}`,
+          },
+        }
       );
       onSuccess(res.data);
     } catch {
@@ -43,8 +51,8 @@ const UpdatePackageModal = ({ pkg, onClose, onSuccess }) => {
 
   return (
     <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-      <div className="bg-white rounded-xl p-8 max-w-lg w-full">
-        <h2 className="text-xl font-bold mb-4 text-[#26b6bf]">
+      <div className="bg-white dark:bg-emerald-950 rounded-xl p-8 max-w-lg w-full shadow-2xl border border-emerald-100 dark:border-emerald-800">
+        <h2 className="text-xl font-bold mb-4 text-[#26b6bf] dark:text-emerald-200">
           Update Tour Package
         </h2>
         <form onSubmit={handleUpdate} className="space-y-3">
