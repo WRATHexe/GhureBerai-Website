@@ -66,8 +66,7 @@ src/
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/fardinruhian/ghureberai-client.git
-   cd ghureberai-client
+   git clone https://github.com/WRATHexe/GhureBerai-Website.git
    ```
 
 2. **Install dependencies:**
