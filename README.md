@@ -28,6 +28,13 @@ A modern, user-friendly travel and tour booking web application built with React
 
 ---
 
+## 🖥️ Backend Server
+
+The backend API for this project is available here:  
+🔗 [https://github.com/WRATHexe/GhureBerai-Website-Server](https://github.com/WRATHexe/GhureBerai-Website-Server)
+
+---
+
 ## 📁 Folder Structure
 
 ```
@@ -59,7 +66,7 @@ src/
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/your-username/ghureberai-client.git
+   git clone https://github.com/fardinruhian/ghureberai-client.git
    cd ghureberai-client
    ```
 
